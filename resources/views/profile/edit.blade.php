@@ -12,7 +12,7 @@
                 @include('profile.partials.update-password-form')
             </div>
             <div>
-                @include('profile.partials.delete-user-form')
+{{--                @include('profile.partials.delete-user-form')--}}
             </div>
         </div>
     </div>

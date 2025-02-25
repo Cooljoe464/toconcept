@@ -7,10 +7,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "laravel/framework": "^v11.42.1",
+        "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.6",
+        "livewire/livewire": "^3.5"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-latest"
+        ,
         "fakerphp/faker": "^1.23",
         "guizoxxv/laravel-breeze-bootstrap": "^1.0",
         "laravel/breeze": "^2.3",
