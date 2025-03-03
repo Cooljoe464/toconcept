@@ -52,7 +52,7 @@
                                                                  data-videoattributes="controls=0&showinfo=0&rel=0&autoplay=1&mute=1&loop=1">
                                                             </div>
 
-
+                                                            <div class="packery_fadder"></div>
                                                         </li>
                                                     </ul>
                                                     <div class="tp-bannertimer tp-bottom dis-02"></div>
