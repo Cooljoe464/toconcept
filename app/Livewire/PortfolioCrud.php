@@ -17,7 +17,7 @@ class PortfolioCrud extends Component
 
     // To customize the pagination theme if needed (optional)
     protected $paginationTheme = 'bootstrap';
-    // Form fields
+    // Form fields  
     public $portfolioId, $title, $tags_id, $tags, $image, $search;
 
     // Flag to switch between create and edit mode
@@ -113,30 +113,34 @@ class PortfolioCrud extends Component
     // Update an existing portfolio
     public function update()
     {
-        $this->validate([
-            'title' => 'required|string',
-            'tags_id' => 'required|integer',
-            'tags' => 'required|string',
-            'image' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
-        ]);
+        try {
+            $this->validate([
+                'title' => 'required|string',
+                'tags_id' => 'required|integer',
+                'tags' => 'required|string',
+                'image' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
+            ]);
 
-        $portfolio = Portfolio::findOrFail($this->portfolioId);
-        // If a new image is uploaded, delete the old file and store the new one.
-        if ($this->image) {
-            if ($portfolio->image && Storage::disk('public')->exists($portfolio->image)) {
-                Storage::disk('public')->delete($portfolio->image);
+            $portfolio = Portfolio::findOrFail($this->portfolioId);
+            // If a new image is uploaded, delete the old file and store the new one.
+            if ($this->image) {
+                if ($portfolio->image && Storage::disk('public')->exists($portfolio->image)) {
+                    Storage::disk('public')->delete($portfolio->image);
+                }
+                $imagePath = Storage::disk('public')->putFile('portfolios', $this->image);
+            } else {
+                $imagePath = $portfolio->image;
             }
-            $imagePath = Storage::disk('public')->putFile('portfolios', $this->image);
-        } else {
-            $imagePath = $portfolio->image;
-        }
 
-        $portfolio->update([
-            'title' => $this->title,
-            'tags_id' => $this->tags_id,
-            'tags' => strtolower($this->tags),
-            'image' => $imagePath,
-        ]);
+            $portfolio->update([
+                'title' => $this->title,
+                'tags_id' => $this->tags_id,
+                'tags' => strtolower($this->tags),
+                'image' => $imagePath,
+            ]);
+        } catch (\Exception $exception) {
+            Log::log($exception);
+        }
 
         session()->flash('message', 'Portfolio updated successfully.');
         $this->resetInputFields();
