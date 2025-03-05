@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Tags;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use App\Models\Portfolio;
@@ -67,24 +68,28 @@ class PortfolioCrud extends Component
     // Store a new portfolio
     public function store()
     {
-        $this->validate([
-            'title' => 'required|string',
-            'tags' => 'required|numeric',
-            'image' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
-        ]);
+        try {
+            $this->validate([
+                'title' => 'required|string',
+                'tags' => 'required|numeric',
+                'image' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
+            ]);
 
-        // Use Storage facade to store the image file if provided.
-        $imagePath = $this->image
-            ? Storage::disk('public')->putFile('portfolios', $this->image)
-            : null;
-        $tag = Tags::find($this->tags);
+            // Use Storage facade to store the image file if provided.
+            $imagePath = $this->image
+                ? Storage::disk('public')->putFile('portfolios', $this->image)
+                : null;
+            $tag = Tags::find($this->tags);
 
-        Portfolio::create([
-            'title' => $this->title,
-            'tags_id' => $tag->id,
-            'tags' => strtolower($tag->name),
-            'image' => $imagePath,
-        ]);
+            Portfolio::create([
+                'title' => $this->title,
+                'tags_id' => $tag->id,
+                'tags' => strtolower($tag->name),
+                'image' => $imagePath,
+            ]);
+        } catch (\Exception $exception) {
+            Log::log($exception);
+        }
 
         session()->flash('message', 'Portfolio created successfully.');
         $this->resetInputFields();
