@@ -5,7 +5,7 @@
                 <div class="sidepanel widget_text">
                     <div class="textwidget">
                         <p>
-                            <img src="assets/img/logo/logo.png" width="150" height="100" alt=""/>
+                                <img src="{{ asset('assets/img/logo/logo.png') }}" width="150" height="100" alt=""/>
                             <br/>{{ __($homePage['biography_footer']) }}
                         </p>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="textwidget">
                         <div class="contact_info">
                             <div class="module_content">
-                                <p>tel <a href="tel:{{ $homePage['phone1'] }}"></a>{{ $homePage['phone1'] }}</p>
+                                <p><a href="tel:{{ $homePage['phone1'] }}"></a>{{ $homePage['phone1'] }}</p>
                                 @if($homePage['phone2'])
                                     <p>tel <a href="tel:{{ $homePage['phone2'] }}">{{ $homePage['phone2'] }}</a></p>
                                 @endif

@@ -26,8 +26,8 @@ Route::get('/', function () {
     $homePage = HomePage::first();
     $Clients = Client::all();
     $getTags = Tags::all();
-    $tagIds = Tags::pluck('id')->toArray();
-    $portfolios = Portfolio::whereIn('id', $tagIds)->inRandomOrder()->take(8)->get();
+//    $tagIds = Tags::pluck('id')->toArray();
+    $portfolios = Portfolio::latest()->take(8)->get();
     return view('guests.index', compact('portfolios', 'getTags', 'homePage', 'Clients'));
 })->name('landing');
 
@@ -79,12 +79,12 @@ Route::get('/legal', function () {
     return view('guests.legal', compact('getTags', 'homePage'));
 })->name('legal');
 
-Route::get('/events', function () {
+Route::get('/videos', function () {
     $homePage = HomePage::first();
     $getTags = Tags::all();
     $videos = Videos::all();
     return view('guests.events', compact('videos', 'getTags', 'homePage'));
-})->name('events');
+})->name('videos');
 
 Route::post('/send-mail', function (Request $request) {
 

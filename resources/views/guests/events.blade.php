@@ -32,19 +32,24 @@
              data-showlikes="show" data-showshare="show" data-categs="">
             <div class="portfolio_grid_isotope">
                 @foreach($videos as $video)
-                    <div class="portfolio_grid_item element {{ $video->tag }}" data-category="{{$video->tag}}">
+                    <div class="portfolio_grid_item element {{ $video->tag }}" data-category="{{$video->tag}}"  >
                         <div class="portfolio_grid_item_wrapper">
                             <div class="img_block wrapped_img fs_port_item gallery_item_wrapper">
                                 <iframe width="1000" height="300"
                                         src="https://www.youtube.com/embed/{{ $video->video_id }}" frameborder="0"
                                         allowfullscreen></iframe>
                             </div>
-                            <div class="portfolio_grid_content">
-                                <div class="pgc_left_part">
-                                    <h6 class="portfolio_grid_title">{{ $video->title }}</h6>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
+{{--                            <div class="portfolio_grid_content">--}}
+{{--                                <div class="pgc_left_part" >--}}
+{{--                                    <h6 class="portfolio_grid_title">{{ $video->title }}</h6>--}}
+{{--                                </div>--}}
+{{--                                <div class="clear"></div>--}}
+{{--                            </div>--}}
+                        </div>
+                        <hr/>
+                        <hr/>
+                        <div class="pgc_left_part"  >
+                            <h6 class="portfolio_grid_title">{{ $video->title }}</h6>
                         </div>
                         <!-- .portfolio_grid_item_wrapper -->
                     </div>

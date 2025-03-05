@@ -24,11 +24,17 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href='{{ asset('assets/css/font-awesome.min.css', env('SECURE_ASSETS')) }}'>
-    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,300,400,700,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,900" rel="stylesheet">
+
+{{--    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,300,400,700,900" rel="stylesheet">--}}
+{{--    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">--}}
+{{--    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,900" rel="stylesheet">--}}
     <link rel="stylesheet" href='{{ asset('assets/css/font-iconano.css', env('SECURE_ASSETS')) }}'>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:opsz,wght@10..72,100..900&display=swap" rel="stylesheet">
+{{--    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:opsz,wght@10..72,500&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">--}}
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:opsz,wght@10..72,500&family=Oswald:wght@200..700&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- Theme style -->
     <link rel='stylesheet' href='{{ asset('assets/css/theme.css', env('SECURE_ASSETS')) }}'>
 
@@ -64,9 +70,9 @@
 
 <!-- .wrapper -->
 <div class="footer">
-    @if(request()->is('/'))
+{{--    @if(request()->is('/'))--}}
         @include('layouts.guest-footer')
-    @endif
+{{--    @endif--}}
     <div class="footer_wrapper" data-pad-top="15" data-pad-bottom="15">
         <div class="copyright">&copy; 2020 - {{ date('Y') }} @ ToConcepts. All right reserved. Made by
             <a href="mailto:{{ __('joelonyedinefu@gmail.com') }}">Onyedinefu Joel</a></div>

@@ -3,7 +3,12 @@
 @section('content')
 
     @push('styles')
+        <style>
+            .rs-background-video-layer {
+                pointer-events: none !important;
+            }
 
+        </style>
     @endpush
 
     <div class="wrapper">
@@ -12,6 +17,8 @@
                 <div class="fl-container">
                     <div class="posts-block">
                         <div class="contentarea">
+
+
                             <div class='row'>
                                 <div class='span12 first-module module_number_1 module_cont  module_layer_slider'>
                                     <div class='module_inner style5'>
@@ -49,7 +56,7 @@
                                                                  data-forceCover="1"
                                                                  data-aspectratio="16:9"
                                                                  data-autoplay="true"
-                                                                 data-videoattributes="controls=0&showinfo=0&rel=0&autoplay=1&mute=1&loop=1">
+                                                                 data-videoattributes="controls=0&showinfo=0&rel=0&autoplay=1&mute=1&loop=1&disablekb=1">
                                                             </div>
 
                                                             <div class="packery_fadder"></div>
@@ -71,7 +78,8 @@
                                         <div class='module_inner module_cont-02'>
                                             <div class='module_content'>
                                                 <p class="module_cont-03">
-                                                    <img class="module_cont-03-img" src="assets/img/logo/logo_black.png"
+                                                    <img class="module_cont-03-img"
+                                                         src="{{ asset('assets/img/logo/logo_black.png', env('secure_assets')) }}"
                                                          alt=""
                                                          width="200" height="100"/>
                                                 </p>
@@ -94,7 +102,17 @@
                             @include('guests.addon.portfolio-mini')
 
                             <!-- Our Clients -->
-                            <div class="module_line_trigger fw_block bg_cover dis-05 dis-05" data-pad-top="0px">
+                            <div class="module_line_trigger fw_block bg_cover  dis-05" data-pad-top="50px">
+                                <div class='row'>
+                                    <div class='span12  module_number_2 module_cont text-center module_title'>
+                                        <div class='module_inner style5'>
+                                            <div class='bg_title'>
+                                                <h2 class='headInModule style5-title'><u>OUR AWESOME CLIENTS</u></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- .module_cont -->
+                                </div>
                                 <div class='row'>
                                     <div class='span12  module_number_9 module_cont  module_partners'>
                                         <div class='module_inner style30'>
@@ -104,10 +122,10 @@
                                                         <li>
                                                             <div class="item_wrapper">
                                                                 <div class="item">
-                                                                    <a href='{{ !empty($client->link) ? $client->link : '' }}'
+                                                                    <a href='{{ !empty($client->link) ? $client->link : '#' }}'
                                                                        target='_blank'>
                                                                         <img
-                                                                            src="{{ Storage::url($client->photo, env('SECURE_ASSETS')) }}"
+                                                                            src="{{ Storage::url($client->photos, env('SECURE_ASSETS')) }}"
                                                                             alt=""
                                                                             title="{{ $client->names }}"/>
                                                                     </a>
@@ -160,16 +178,6 @@
                 src="assets/js/revslider/extensions/revolution.extension.parallax.min.js"></script>
         <script src="assets/js/revslider/rvstart.js"></script>
 
-
-
-
-
-
-        <!-- Slider Revolution Core JS -->
-        {{--        <script src="https://cdn.jsdelivr.net/npm/revolution/js/jquery.themepunch.tools.min.js"></script>--}}
-        {{--        <script src="https://cdn.jsdelivr.net/npm/revolution/js/jquery.themepunch.revolution.min.js"></script>--}}
-
-
         <script>
             jQuery("#rev_slider_1_1").revolution({
                 sliderType: "standard",
@@ -184,6 +192,13 @@
                     autoplay: true,
 
                 },
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                let youtubeIframe = document.querySelector("iframe");
+                if (youtubeIframe) {
+                    youtubeIframe.style.pointerEvents = "none"; // Ensures no interaction
+                }
             });
         </script>
 

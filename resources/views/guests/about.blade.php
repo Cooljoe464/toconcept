@@ -69,7 +69,7 @@
                     data-video="0"
                     data-interval="5000" data-autoplay="autoplay">
                     <li class="fs_slide slide_image block2preload fs_slide1" data-count="1"
-                        data-src="{{ asset($homePage['biography_photo'], env('SECURE_ASSETS')) }}" data-title="Bio Image"
+                        data-src="{{ Storage::url($homePage['biography_photo'], env('SECURE_ASSETS')) }}" data-title="Bio Image"
                          data-type="image"></li>
 {{--                    <li class="fs_slide slide_image block2preload fs_slide2" data-count="2"--}}
 {{--                        data-src="assets/img/img7.jpg" data-title="Girls Office" data-descr="NY Studio <br />2020"--}}
@@ -98,7 +98,7 @@
                             <div class="item_wrapper">
                                 <div class="item">
                                     <a href='{{ !empty($client->link) ? $client->link : '' }}' target='_blank'>
-                                        <img src="{{ asset($client->photo, env('SECURE_ASSETS')) }}" alt=""
+                                        <img src="{{ Storage::url($client->photos, env('SECURE_ASSETS')) }}" alt=""
                                              title="{{ $client->names }}"/>
                                     </a>
                                 </div>
@@ -130,7 +130,7 @@
                     <div class="portfolio_grid_item element " data-category="{{ $team->names }}">
                         <div class="portfolio_grid_item_wrapper">
                             <div class="img_block wrapped_img fs_port_item gallery_item_wrapper">
-                                <img width="960" class="img2preload" height="632" src="{{ asset($team->photo, env('SECURE_ASSETS')) }}"
+                                <img width="960" class="img2preload" height="632" src="{{ Storage::url($team->photo, env('SECURE_ASSETS')) }}"
                                      alt=""/>
                                 <div class="gallery_fadder"></div>
                             </div>
@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <a href="{{ asset($team->photo, env('SECURE_ASSETS')) }}" class="portfolio_grid_href swipebox "
+                            <a href="{{ Storage::url($team->photo, env('SECURE_ASSETS')) }}" class="portfolio_grid_href swipebox "
                                title="Photo of {{ $team->names }}"></a>
                         </div>
                         <!-- .portfolio_grid_item_wrapper -->

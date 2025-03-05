@@ -1,0 +1,13 @@
+Create option to make tags with the summer note from Adminlte3 template for each of them created as they have their own page.
+Use of Summernote for the dashboard to put text informations
+Create a booking page with the form information from https://ryanonifoto.framer.website/fashion
+Informations needed:
+Name, required
+Email, required
+Phone Number, required
+Gender, required
+Shoot preferred, required
+Shoot_location, required
+No_of_individuals_expected, required
+Extra_information, nullable
+Who_referred nullable.

@@ -4,7 +4,7 @@
             <div class="logo_sect" data-height="85">
                 <a href="{{ route('landing') }}" class="logo">
                     <!-- Logo -->
-                    <img src="{{ asset('assets/img/logo/logo.png') }}" alt="" width="200" height="85">
+                    <img src="{{ asset('assets/img/logo/logo.png') }}" alt="" width="180" height="100">
                 </a>
             </div>
             <div class="fright">
@@ -39,14 +39,14 @@
                             </div>
                         </li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page @if(request()->is('contact')) current-menu-ancestor @endif">
-                            <a href="{{ route('contact') }}">Contact/Booking</a>
+                            <a href="{{ route('contact') }}">Contact & Booking</a>
                         </li>
 {{--                        <li class="menu-item menu-item-type-custom menu-item-object-custom @if(request()->is('services')) current-menu-ancestor @endif">--}}
 {{--                            <a href="{{ route('services') }}">Services</a>--}}
 {{--                        </li>--}}
 
-                        <li class="menu-item menu-item-type-custom menu-item-object-custom @if(request()->is('events')) current-menu-ancestor @endif">
-                            <a href="{{ route('events') }}">Events</a>
+                        <li class="menu-item menu-item-type-custom menu-item-object-custom @if(request()->is('videos')) current-menu-ancestor @endif">
+                            <a href="{{ route('videos') }}">Videos</a>
                         </li>
 
                         <li class="menu-item menu-item-type-post_type menu-item-object-page @if(request()->is('login')) current-menu-ancestor @endif">
