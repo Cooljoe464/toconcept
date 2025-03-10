@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Faq's</h1>
+                    <h1 class="m-0">Tags</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard')  }}">Home</a></li>
-                        <li class="breadcrumb-item active">Faq's</li>
+                        <li class="breadcrumb-item active">Tags</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -35,31 +35,30 @@
                     <!-- general form elements -->
                     <div class="card card-gray-dark ">
                         <div class="card-header">
-                            <h3 class="card-title">{{ $isEditMode ? 'Edit Faq' : 'Add New Faq' }}</h3>
+                            <h3 class="card-title">{{ $isEditMode ? 'Edit Tag' : 'Add New Tag' }}</h3>
                         </div>
 
                         <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}" class="form-horizontal ">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="exampleInputBorder">Question <code>*</code></label>
-                                    <input type="text" wire:model="question"
-                                           class="form-control form-control-border border-width-2" name="question"
-                                           id="exampleInputBorder" placeholder="Enter Question" required>
+                                    <label for="exampleInputBorder">Tag Name<code>*</code></label>
+                                    <input type="text" wire:model="name"
+                                           class="form-control form-control-border border-width-2" name="name"
+                                           id="exampleInputBorder" placeholder="Enter Tag Name" required>
 
-                                    @error('question') <span class="text-danger">{{ $message }}</span>@enderror
+                                    @error('name') <span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
-
+                                @if($isEditMode === true)
                                 <div class="form-group">
-                                    <label for="exampleInputBorder">Answer <code>*</code></label>
-                                    <textarea type="text" wire:model="answer"
-                                           class="form-control form-control-border border-width-2" name="answer"
-                                              id="exampleInputBorder" placeholder="Enter Answer" required></textarea>
+                                    <label for="exampleInputBorder">Tag slug<code>*</code></label>
+                                    <input type="text" wire:model="slug"
+                                           class="form-control form-control-border border-width-2" name="slug"
+                                           id="exampleInputBorder" placeholder="Enter tag slug" required>
 
-                                    @error('answer') <span class="text-danger">{{ $message }}</span>@enderror
+                                    @error('slug') <span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
-
-
+                                @endif
 
                                 <div class="flex space-x-4">
                                     <button type="submit" class="btn btn-success">
@@ -84,27 +83,26 @@
 
                     <h2 class="text-xl font-bold mb-2"><u>View Faq's</u></h2>
                     <!-- Search Input -->
-                    <input type="text" wire:model.live="search" class="form-control form-control-border border-width-2" placeholder="Search faq's" style="margin-bottom: 10px;">
+                    <input type="text" wire:model.live="search" class="form-control form-control-border border-width-2" placeholder="Search your tags" style="margin-bottom: 10px;">
                     <table class="table table-bordered table-responsive-lg">
                         <thead class="bg-gray text-bold">
                         <tr>
-                            <th>Questions</th>
-                            <th>Answers</th>
-
+                            <th>Name</th>
+                            <th>Slug</th>
                             <th colspan="2">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($faqs as $faq)
+                        @foreach($tags as $tag)
                             <tr>
-                                <td><strong>{{ $faq->question }}</strong></td>
-                                <td><strong>{{ $faq->answer }}</strong></td>
+                                <td><strong>{{ $tag->name }}</strong></td>
+                                <td><strong>{{ $tag->slug }}</strong></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button wire:click="edit({{ $faq->id }})"
+                                        <button disabled wire:click="edit({{ $tag->id }})"
                                                 class="btn btn-secondary">Edit
                                         </button>
-                                        <button wire:click="delete({{ $faq->id }})"
+                                        <button  wire:click="delete({{ $tag->id }})"
                                                 class="btn btn-danger"
                                                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">
                                             Delete
@@ -116,7 +114,7 @@
                         </tbody>
                     </table>
                     <div class="mt-4">
-                        {{ $faqs->links() }}
+                        {{ $tags->links() }}
                     </div>
                 </div>
 

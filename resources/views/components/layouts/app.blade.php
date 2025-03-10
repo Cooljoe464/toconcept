@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('asset/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('asset/plugins/summernote/summernote-bs4.min.css') }}">
-
+@stack('styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -88,6 +88,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('tags-crud') }}" class="nav-link @if(request()->is('admin/tags')) active @endif">
+                            <i class="nav-icon fas fa-tag"></i>
+                            <p>
+                                Tags
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('portfolio-crud') }}" class="nav-link @if(request()->is('admin/portfolio')) active @endif">
                             <i class="nav-icon fas fa-image"></i>
                             <p>
@@ -133,7 +142,7 @@
 {{--                    </li>--}}
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link @if(request()->is('admin/faq')) active @endif">
+                        <a href="{{ route('faq-crud') }}" class="nav-link @if(request()->is('admin/faq')) active @endif">
                             <i class="nav-icon fas fa-info"></i>
                             <p>
                                 FAQ's

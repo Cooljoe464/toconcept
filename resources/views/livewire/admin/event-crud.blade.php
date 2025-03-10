@@ -55,10 +55,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Tag</label>
-                                    <select class="form-control form-control-border border-width-2" wire:model="tag_id" required>
+                                    <select class="form-control form-control-border border-width-2" wire:model="tags_id" required>
                                         <option value="">Select Tag</option>
-                                        @foreach ($tags as $tag)
-                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @foreach($availableTags as $id => $name)
+                                            <option value="{{ $id }}" {{ $tags_id == $id ? 'selected' : '' }}>{{ $name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -107,8 +107,8 @@
 {{--                                    |{{ $video->video_id }}--}}
                                 </td>
                                 <td>
-                                    <button wire:click="edit({{ $video->id }})" class="btn btn-info">Edit</button>
-                                    <button wire:click="delete({{ $video->id }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" class="btn btn-danger">Delete</button>
+                                    <button wire:click="edit('{{ $video->uuid }}')" class="btn btn-info">Edit</button>
+                                    <button wire:click="delete('{{ $video->uuid }}')" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" class="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
                         @endforeach

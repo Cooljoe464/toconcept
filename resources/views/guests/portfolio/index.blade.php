@@ -32,7 +32,7 @@
                                 <div class="portfolio_grid_item_wrapper">
                                     <div class="img_block wrapped_img fs_port_item gallery_item_wrapper">
                                         <img width="960" class="img2preload" height="632"
-                                             src="{{ Storage::url($portfolio->image) }}"
+                                             src="{{ Storage::url($portfolio->image, env('SECURE_ASSETS')) }}"
                                              alt="{{ $portfolio->title }}"/>
                                         <div class="gallery_fadder"></div>
                                     </div>
@@ -53,7 +53,7 @@
                 </div>
                 <!-- .portfolio_grid -->
 
-                        <button wire:click="loadMore" class="albums_load_more shortcode_button btn_normal btn_type4">Load More</button>
+{{--                        <button wire:click="loadMore" class="albums_load_more shortcode_button btn_normal btn_type4">Load More</button>--}}
             </div>
 
         @include('guests.addon.book_now')

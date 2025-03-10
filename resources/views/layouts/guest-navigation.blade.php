@@ -19,7 +19,7 @@
                                 <ul class="sub-menu">
                                     @foreach($getTags as $tags)
                                         <li class="menu-item menu-item-type-post_type menu-item-object-page">
-                                            <a href="{{ route('portfolio.others', $tags->id) }}">{{ $tags->name }}</a>
+                                            <a href="{{ route('portfolio.others', $tags->uuid) }}">{{ $tags->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -39,7 +39,7 @@
                             </div>
                         </li>
                         <li class="menu-item menu-item-type-post_type menu-item-object-page @if(request()->is('contact')) current-menu-ancestor @endif">
-                            <a href="{{ route('contact') }}">Contact & Booking</a>
+                            <a href="{{ route('contact') }}">Contact</a>
                         </li>
 {{--                        <li class="menu-item menu-item-type-custom menu-item-object-custom @if(request()->is('services')) current-menu-ancestor @endif">--}}
 {{--                            <a href="{{ route('services') }}">Services</a>--}}

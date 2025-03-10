@@ -52,6 +52,7 @@
 @if(request()->is('about')||request()->is('portfolio')) page-template page-template-page-albums page-template-page-albums-php  || page-template-page-with-slider page-template-page-with-slider-php @endif page page_with_abs_header dark_color_scheme">
 <div class="gt3_preloader">
     <div class="gt3_preloader_content">
+        <img src="{{ asset('assets/img/logo/logo.png', env('SECURE_ASSETS')) }}" width="150" alt="To-concepts Logo">
         <div class="arc1"></div>
         <div class="arc2"></div>
         <div class="arc3"></div>
@@ -66,7 +67,6 @@
 @include('layouts.guest-navigation')
 
 @yield('content')
-
 
 <!-- .wrapper -->
 <div class="footer">

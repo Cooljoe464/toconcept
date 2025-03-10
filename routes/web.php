@@ -6,6 +6,7 @@ use App\Livewire\DashboardUtility;
 use App\Livewire\EventCrud;
 use App\Livewire\FaqCrud;
 use App\Livewire\PortfolioCrud;
+use App\Livewire\TagCrud;
 use App\Livewire\TeamsCrud;
 use App\Mail\SendMail;
 use App\Models\Client;
@@ -24,22 +25,22 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $homePage = HomePage::first();
-    $Clients = Client::all();
+    $Clients = Client::orderBy('created_at', 'desc')->get();
     $getTags = Tags::all();
 //    $tagIds = Tags::pluck('id')->toArray();
-    $portfolios = Portfolio::latest()->take(8)->get();
+    $portfolios = Portfolio::orderBy('created_at', 'desc')->take(8)->get();
     return view('guests.index', compact('portfolios', 'getTags', 'homePage', 'Clients'));
 })->name('landing');
 
 Route::get('/about', function () {
     $homePage = HomePage::first();
-    $Clients = Client::all();
+    $Clients = Client::orderBy('created_at', 'desc')->get();
     $Teams = Teams::all();
     $getTags = Tags::all();
     return view('guests.about', compact('getTags', 'homePage', 'Clients', 'Teams'));
 })->name('about');
 
-Route::get('/contact&booking', function () {
+Route::get('/contacts', function () {
     $homePage = HomePage::first();
     $getTags = Tags::all();
     return view('guests.contacts', compact('getTags', 'homePage'));
@@ -47,7 +48,8 @@ Route::get('/contact&booking', function () {
 
 Route::get('/portfolio', function () {
     $homePage = HomePage::first();
-    $getTags = Tags::all();
+    $Tags = Portfolio::select('tags_id')->distinct()->pluck('tags_id')->toArray();
+    $getTags = Tags::whereIn('uuid', $Tags)->get();
     return view('guests.portfolio', compact('getTags', 'homePage'));
 })->name('portfolio');
 
@@ -68,7 +70,7 @@ Route::get('/services', function () {
 Route::get('/faq', function () {
     $homePage = HomePage::first();
     $Faq = Faq::all();
-    $Clients = Client::all();
+    $Clients = Client::orderBy('created_at', 'desc')->get();
     $getTags = Tags::all();
     return view('guests.modules', compact('getTags', 'homePage', 'Clients', 'Faq'));
 })->name('faq');
@@ -81,7 +83,8 @@ Route::get('/legal', function () {
 
 Route::get('/videos', function () {
     $homePage = HomePage::first();
-    $getTags = Tags::all();
+    $Tags = Videos::select('tag_id')->distinct()->pluck('tag_id')->toArray();
+    $getTags = Tags::whereIn('uuid', $Tags)->get();
     $videos = Videos::all();
     return view('guests.events', compact('videos', 'getTags', 'homePage'));
 })->name('videos');
@@ -90,11 +93,11 @@ Route::post('/send-mail', function (Request $request) {
 
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|email',
+        'email' => 'required|email|max:255',
         'phone' => 'required|string|max:20',
         'message' => 'required|string',
     ]);
-    Mail::to('cooljoe464@gmail.com')->send(new SendMail($validatedData));
+    Mail::to('joelonyedinefu@gmail.com')->send(new SendMail($validatedData));
     return response()->json([
         'status' => 'success',
         'message' => 'Mail sent successfully'
@@ -111,15 +114,16 @@ Route::middleware(['auth',
     Route::get('/admin/teams', TeamsCrud::class)->name('team-crud');
     Route::get('/admin/events', EventCrud::class)->name('event-crud');
     Route::get('/admin/faq', FaqCrud::class)->name('faq-crud');
+    Route::get('/admin/tags', TagCrud::class)->name('tags-crud');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Auth::routes([
-    'login' => false,
-    'register' => false
-]);
+//Auth::routes([
+//    'login' => true,
+//    'register' => false
+//]);
 
 require __DIR__ . '/auth.php';

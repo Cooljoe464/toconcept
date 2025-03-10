@@ -13,37 +13,33 @@ class EventCrud extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $title, $tag_id, $video_id, $videoId;
-    public $tags;
+    public $title, $tags_id, $tags, $video_id, $videoId;
+//    public $tags;
     public $isEditing = false;
 
     public $search = ''; // Added search property
 
-    public function updatedSearch()
+    public $availableTags = [];
+
+    public function mount(): void
     {
-        // This is now handled automatically by Livewire 3
-        // If needed, you can add debounce:
-        // $this->search = $value; // Assign the new value
+        $this->availableTags = Tags::all()->pluck('name', 'uuid')->toArray();
     }
 
-    public function mount()
-    {
-        $this->tags = Tags::all();
-    }
-
-    public function save()
+    public function save(): void
     {
         $this->validate([
             'title' => 'required',
-            'tag_id' => 'required|exists:tags,id',
+//            'tags' => 'required|exists:tags,name',
+            'tags_id' => 'required|exists:tags,uuid',
             'video_id' => 'required',
         ]);
-        $tag = Tags::find($this->tag_id);
+        $tag = Tags::find($this->tags_id);
         // Create new video
         Videos::create([
             'title' => $this->title,
-            'tag' => $tag->slug,
-            'tag_id' => $this->tag_id,
+            'tag' => $tag->name,
+            'tag_id' => $this->tags_id,
             'video_id' => $this->video_id,
         ]);
 
@@ -53,12 +49,13 @@ class EventCrud extends Component
     }
 
 
-    public function edit($id)
+    public function edit($id): void
     {
         $video = Videos::findOrFail($id);
-        $this->videoId = $video->id;
+        $this->videoId = $video->uuid;
         $this->title = $video->title;
-        $this->tag_id = $video->tag_id;
+        $this->tags_id = $video->tag_id;
+        $this->tags = $video->tag;
         $this->video_id = $video->video_id;
         $this->isEditing = true;
 
@@ -70,7 +67,7 @@ class EventCrud extends Component
         $this->resetForm();
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
         Videos::findOrFail($id)->delete();
         session()->flash('message', 'Video deleted.');
@@ -78,10 +75,10 @@ class EventCrud extends Component
     }
 
 
-    public function update()
+    public function update(): void
     {
         $this->validate([
-            'title' => 'required',
+            'title' => 'required|string',
             'tag_id' => 'required|exists:tags,id',
             'video_id' => 'required',
         ]);
@@ -89,11 +86,11 @@ class EventCrud extends Component
         // Update existing video
         $video = Videos::findOrFail($this->videoId);
 
-        $tag = Tags::find($this->tag_id);
+        $tag = Tags::find($this->tags_id);
         $video->update([
             'title' => $this->title,
             'tag' => $tag->slug,
-            'tag_id' => $this->tag_id,
+            'tag_id' => $this->tags_id,
             'video_id' => $this->video_id,
         ]);
 
@@ -101,9 +98,9 @@ class EventCrud extends Component
         $this->resetForm();
     }
 
-    private function resetForm()
+    private function resetForm(): void
     {
-        $this->reset(['title', 'tag_id', 'video_id', 'videoId', 'isEditing']);
+        $this->reset(['title', 'tags_id', 'video_id', 'videoId', 'isEditing']);
     }
 
     public function render()
@@ -111,6 +108,7 @@ class EventCrud extends Component
         return view('livewire.admin.event-crud', [
             'videos' => Videos::where('title', 'like', '%' . $this->search . '%')
                 ->orWhere('tag', 'like', '%' . $this->search . '%')
+                ->orderBy('created_at', 'desc')
                 ->paginate(5),// Paginate with 5 items per page
         ]);
     }

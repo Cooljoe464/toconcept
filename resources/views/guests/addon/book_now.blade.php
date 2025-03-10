@@ -12,7 +12,7 @@
                                     BEAUTY HUNTERS!</h1>
                             </div>
                         </div>
-                        <div class="promo_button_block"><a href="{{ route('contact') }}" target="_self"
+                        <div class="promo_button_block"><a href="{{ route('landing') }}#book_now" target="_self"
                                                            class="shortcode_button btn_normal btn_type18"><i
                                     class="icon-none"></i>book now</a>
                         </div>

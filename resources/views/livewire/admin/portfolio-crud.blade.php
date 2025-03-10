@@ -1,3 +1,7 @@
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('asset/plugins/select2/css/select2.min.css', env('SECURE_ASSETS')) }}">
+    <link rel="stylesheet" href="{{ asset('asset/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css', env('SECURE_ASSETS')) }}">
+@endpush
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -43,7 +47,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputBorder">Select Tags<code>*</code></label>
-                                    <select wire:model="tags" class="form-control form-control-border border-width-2">
+                                    <select class="form-control form-control-border border-width-2" wire:model="tags" style="width: 100%">
                                         <option value="">Select Tags</option>
                                         @foreach($availableTags as $id => $name)
                                             <option value="{{ $id }}" {{ $tags_id == $id ? 'selected' : '' }}>{{ $name }}</option>
@@ -112,10 +116,10 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button wire:click="edit({{ $portfolio->id }})"
+                                        <button wire:click="edit('{{ $portfolio->uuid }}')"
                                                 class="btn btn-secondary">Edit
                                         </button>
-                                        <button wire:click="delete({{ $portfolio->id }})"
+                                        <button wire:click="delete('{{ $portfolio->uuid }}')"
                                                 class="btn btn-danger"
                                                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">
                                             Delete
@@ -135,9 +139,15 @@
         </div>
         <!-- Pagination Links -->
         @push('scripts')
-
+            <script src="{{ asset('asset/plugins/select2/js/select2.full.min.js') }}"></script>
             <!-- JavaScript to scroll to the form -->
             <script>
+                $(function () {
+                    $('.select2').select2({
+                        theme: 'bootstrap4',
+                        placeholder: 'Select Tags',
+                    });
+                });
                 window.addEventListener('scroll-to-form', event => {
                     const formElement = document.getElementById('portfolio-form');
                     if (formElement) {
