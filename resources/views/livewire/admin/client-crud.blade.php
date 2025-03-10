@@ -33,11 +33,6 @@
                     @endif
                     <!-- general form elements -->
                     <div class="card card-dark">
-                        @if (session()->has('message'))
-                            <div class="mb-4 p-2 alert alert-default-info">
-                                {{ session('message') }}
-                            </div>
-                        @endif
                         <div class="card-header">
                             <h3 class="card-title">{{ $isEditMode ? 'Edit Client' : 'Add Client' }}</h3>
                         </div>
@@ -81,7 +76,11 @@
                         </form>
                     </div>
 
-
+                        @if (session()->has('message'))
+                            <div class="mb-4 p-2 alert alert-default-info">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                     <h2 class="text-xl font-bold mt-6"><u>Clients List</u></h2>
                         <!-- Search Input -->
                         <input type="text" wire:model.live="search" class="form-control form-control-border border-width-2" placeholder="Search clients..." style="margin-bottom: 10px;">
@@ -96,8 +95,8 @@
                             <tr>
                                 <td>{{ $client->names }}</td>
                                 <td>
-                                    <a href="{{ $client->links }}" target="_blank"
-                                       class="text-blue">{{ $client->links }}</a>
+                                    <a href="{{ $client->link }}" target="_blank"
+                                       class="text-blue">{{ $client->link }}</a>
                                 </td>
                                 <td>
                                     @if($client->photos)
@@ -107,9 +106,9 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <button wire:click="edit({{ $client->id }})" class="btn btn-secondary">Edit
+                                        <button wire:click="edit('{{ $client->uuid }}')" class="btn btn-secondary">Edit
                                         </button>
-                                        <button wire:click="delete({{ $client->id }})" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" class="btn btn-danger">Delete
+                                        <button wire:click="delete('{{ $client->uuid }}')" onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" class="btn btn-danger">Delete
                                         </button>
                                     </div>
                                 </td>

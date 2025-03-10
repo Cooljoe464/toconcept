@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('portfolios', function (Blueprint $table) {
-            $table->id();
-            $table->uuid()->default(DB::raw('UUID()'))->index();
+//            $table->id();
+            $table->uuid()->primary()->index();
             $table->string('title');
             $table->string('tags_id');
             $table->string('tags');

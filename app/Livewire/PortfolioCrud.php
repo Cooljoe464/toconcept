@@ -30,6 +30,7 @@ class PortfolioCrud extends Component
     // This property will hold the available tags from the database.
     public $availableTags = [];
 
+
     public function updatedSearch()
     {
         // This is now handled automatically by Livewire 3
@@ -41,7 +42,7 @@ class PortfolioCrud extends Component
     public function mount()
     {
         // Retrieve tags as an associative array: [id => name]
-        $this->availableTags = Tags::all()->pluck('name', 'id')->toArray();
+        $this->availableTags = Tags::all()->pluck('name', 'uuid')->toArray();
     }
 
 
@@ -50,6 +51,7 @@ class PortfolioCrud extends Component
         $availableTags = Tags::all();
         $portfolios = Portfolio::where('title', 'like', '%' . $this->search . '%')
             ->orWhere('tags', 'like', '%' . $this->search . '%')
+            ->orderBy('created_at', 'desc')
             ->paginate(8);
         return view('livewire.admin.portfolio-crud', compact('portfolios', 'availableTags'));
     }
@@ -71,7 +73,7 @@ class PortfolioCrud extends Component
         try {
             $this->validate([
                 'title' => 'required|string',
-                'tags' => 'required|numeric',
+                'tags' => 'required|string',
                 'image' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
             ]);
 
@@ -83,12 +85,12 @@ class PortfolioCrud extends Component
 
             Portfolio::create([
                 'title' => $this->title,
-                'tags_id' => $tag->id,
+                'tags_id' => $tag->uuid,
                 'tags' => strtolower($tag->name),
                 'image' => $imagePath,
             ]);
         } catch (\Exception $exception) {
-            Log::log($exception);
+            Log::warning($exception->getMessage().' Line: '.$exception->getLine());
         }
 
         session()->flash('message', 'Portfolio created successfully.');
@@ -99,7 +101,7 @@ class PortfolioCrud extends Component
     public function edit($id)
     {
         $portfolio = Portfolio::findOrFail($id);
-        $this->portfolioId = $portfolio->id;
+        $this->portfolioId = $portfolio->uuid;
         $this->title = $portfolio->title;
         $this->tags_id = $portfolio->tags_id; // This will update the select field.
         $this->tags = strtolower($portfolio->tags);
@@ -113,30 +115,33 @@ class PortfolioCrud extends Component
     // Update an existing portfolio
     public function update()
     {
-        $this->validate([
-            'title' => 'required|string',
-            'tags_id' => 'required|integer',
-            'tags' => 'required|string',
-            'image' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
-        ]);
+        try {
+            $this->validate([
+                'title' => 'required|string',
+                'tags_id' => 'required|string',
+                'tags' => 'required|string',
+                'image' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
+            ]);
 
-        $portfolio = Portfolio::findOrFail($this->portfolioId);
-        // If a new image is uploaded, delete the old file and store the new one.
-        if ($this->image) {
-            if ($portfolio->image && Storage::disk('public')->exists($portfolio->image)) {
-                Storage::disk('public')->delete($portfolio->image);
+            $portfolio = Portfolio::findOrFail($this->portfolioId);
+            // If a new image is uploaded, delete the old file and store the new one.
+            if ($this->image) {
+                if ($portfolio->image && Storage::disk('public')->exists($portfolio->image)) {
+                    Storage::disk('public')->delete($portfolio->image);
+                }
+                $imagePath = Storage::disk('public')->putFile('portfolios', $this->image);
+            } else {
+                $imagePath = $portfolio->image;
             }
-            $imagePath = Storage::disk('public')->putFile('portfolios', $this->image);
-        } else {
-            $imagePath = $portfolio->image;
+            $portfolio->update([
+                'title' => $this->title,
+                'tags_id' => $this->tags_id,
+                'tags' => strtolower($this->tags),
+                'image' => $imagePath,
+            ]);
+        } catch (\Exception $exception) {
+            Log::warning($exception->getMessage().' Line: '.$exception->getLine());
         }
-
-        $portfolio->update([
-            'title' => $this->title,
-            'tags_id' => $this->tags_id,
-            'tags' => strtolower($this->tags),
-            'image' => $imagePath,
-        ]);
 
         session()->flash('message', 'Portfolio updated successfully.');
         $this->resetInputFields();

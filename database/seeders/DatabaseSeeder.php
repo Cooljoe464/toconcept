@@ -24,10 +24,10 @@ class DatabaseSeeder extends Seeder
 
 //        Tags::factory(2)->create();
 
-        Tags::create(
-            ['name' => 'Weddings', 'slug' => 'weddings'],
-            ['name' => 'Portraits', 'slug' => 'portraits']
-        );
+//        Tags::create(
+//            ['name' => 'Weddings', 'slug' => 'weddings'],
+//            ['name' => 'Portraits', 'slug' => 'portraits']
+//        );
     }
 
 }

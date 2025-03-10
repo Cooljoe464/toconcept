@@ -12,13 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('home_page', function (Blueprint $table) {
-            $table->id();
-            $table->uuid()->index();
+        Schema::create('home_pages', function (Blueprint $table) {
+//            $table->id();
+            $table->uuid()->primary()->index();
             $table->string('video_id');
             $table->longText('biography_home');
             $table->longText('biography_footer');
             $table->longText('biography_about');
+            $table->longText('biography_photo');
             $table->string('email1');
             $table->string('email2')->nullable();
             $table->string('phone1');

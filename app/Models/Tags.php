@@ -2,19 +2,37 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Tags extends Model
 {
-   protected $fillable = ['name', 'slug'];
+    use HasUuids;
+    protected $fillable = ['uuid', 'name', 'slug'];
+    protected $keyType = 'string'; // Set key type to string
+    public $incrementing = false;  // Disable auto-incrementing ID
+    protected $primaryKey = 'uuid';
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Auto-generate UUID when creating a new record
+        static::creating(function ($model) {
+            $model->uuid = (string) Str::uuid();
+        });
+    }
+
 
    public function portfolios()
    {
-       $this->hasMany(Portfolio::class);
+       $this->hasMany(Portfolio::class, 'tag_id', 'uuid');
    }
 
     public function videos()
     {
-        return $this->hasMany(Videos::class);
+        return $this->hasMany(Videos::class, 'tag_id', 'uuid');
     }
 }

@@ -31,8 +31,9 @@ class ClientCrud extends Component
     public function render()
     {
         $clients = Client::where('names', 'like', '%' . $this->search . '%')
-            ->orWhere('links', 'like', '%' . $this->search . '%')
-            ->latest()->paginate(5);
+            ->orWhere('link', 'like', '%' . $this->search . '%')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         return view('livewire.admin.client-crud', compact('clients'));
     }
 
@@ -58,7 +59,7 @@ class ClientCrud extends Component
 
         Client::create([
             'names' => $this->names,
-            'links' => $this->links,
+            'link' => $this->links,
             'photos' => $photoPath,
         ]);
         $this->updatedSearch();
@@ -71,9 +72,9 @@ class ClientCrud extends Component
     public function edit($id)
     {
         $client = Client::findOrFail($id);
-        $this->clientId = $client->id;
+        $this->clientId = $client->uuid;
         $this->names = $client->names;
-        $this->links = $client->links;
+        $this->links = $client->link;
         $this->photos = $client->photos;
         $this->isEditMode = true;
 
@@ -102,7 +103,7 @@ class ClientCrud extends Component
 
         $client->update([
             'names' => $this->names,
-            'links' => $this->links,
+            'link' => $this->links,
             'photos' => $photoPath,
         ]);
 

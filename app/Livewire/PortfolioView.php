@@ -22,9 +22,13 @@ class PortfolioView extends Component
 
     public function render()
     {
-        $tags = Tags::all();
+
+        $Tags = Portfolio::select('tags_id')->distinct()->pluck('tags_id')->toArray();
+//    return $Tags;
+        $tags = Tags::whereIn('uuid', $Tags)->get();
+//        $tags = Tags::all();
 //        $Portfolios = Portfolio::latest()->take($this->perPage)->get();
-        $Portfolios = Portfolio::latest()->get();
+        $Portfolios = Portfolio::orderBy('created_at', 'desc')->get();
 
         $formattedImages = $Portfolios->map(function ($portfolio) {
             return [

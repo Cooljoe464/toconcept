@@ -2,15 +2,31 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+ use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasUuids;
+
+
+    protected $keyType = 'string'; // Set key type to string
+    public $incrementing = false;  // Disable auto-incrementing ID
+    protected $primaryKey = 'uuid';
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Auto-generate UUID when creating a new record
+        static::creating(function ($model) {
+            $model->uuid = (string) Str::uuid();
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +34,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'uuid',
         'name',
         'email',
         'password',
@@ -45,4 +62,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+
+
 }
