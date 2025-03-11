@@ -132,7 +132,7 @@
                                                     {{ $homePage->biography_home??'' }}
                                                 </p>
                                                 <p class="module_cont-06">
-                                                    <a href="#book_now"
+                                                    <a href="{{ route('contact') }}"
                                                        class="hasIcon shortcode_button btn_normal btn_type19"><i
                                                             class="icon-none"></i>get in touch</a>
                                                 </p>
@@ -243,8 +243,9 @@
                                                             <span class="your-phone">
                                                                                 <select name="gender">
                                                                                     <option disabled selected>Type of Shoot</option>
-                                                                                    <option>Female</option>
-                                                                                    <option>Male</option>
+                                                                                    @foreach($getTags as $tags)
+                                                                                        <option>{{ $tags->name }}</option>
+                                                                                    @endforeach
                                                                                 </select>
 																			</span>
                                                         </div>
@@ -254,34 +255,38 @@
 
 
                                                         <div class="span4">
-                                                            <span class="your-phone">
+                                                            <span class="your-location">
                                                                                 <select name="location">
                                                                                     <option disabled selected>Location of Shoot</option>
-                                                                                    <option>Female</option>
-                                                                                    <option>Male</option>
+                                                                                    <option>In Studio</option>
+                                                                                    <option>Studio</option>
+                                                                                    <option>Location(Client's option)</option>
+                                                                                    <option>Home(Client's Home)</option>
                                                                                 </select>
 																			</span>
                                                         </div>
 
                                                         <div class="span4">
-                                                            <span class="your-phone">
-                                                                                <input type="tel"
-                                                                                       name="no_of_individuals"
-                                                                                       value="" size="40"
-                                                                                       aria-required="true"
-                                                                                       aria-invalid="false"
-                                                                                       placeholder="Expected Individuals"/>
+                                                            <span class="your-individual">
+                                                                 <select name="no_of_individuals" class="select">
+                                                                    <option disabled selected>Expected no of Individuals</option>
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5+</option>
+                                                                </select>
 																			</span>
                                                         </div>
 
                                                         <div class="span4">
-																			<span class="your-phone">
-																				<input type="tel" name="referred"
-                                                                                       value="" size="40"
-                                                                                       aria-required="true"
-                                                                                       aria-invalid="false"
-                                                                                       placeholder="Who referred you?"/>
-																			</span>
+                                                            <span class="your-referral">
+                                                                <input type="text" name="referred"
+                                                                       value="" size="40"
+                                                                       aria-required="true"
+                                                                       aria-invalid="false"
+                                                                       placeholder="Who referred you?"/>
+                                                            </span>
                                                         </div>
 
                                                     </div>
@@ -316,8 +321,6 @@
 
         <!-- Slider Revolution Video Extension -->
         {{--        <script src="https://cdn.jsdelivr.net/npm/revolution/js/extensions/revolution.extension.video.min.js"></script>--}}
-
-
 
         <!-- Revolution slider -->
         <script src='assets/js/revslider/jquery.themepunch.revolution.min.js'></script>
