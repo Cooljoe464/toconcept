@@ -120,6 +120,17 @@ Route::middleware(['auth',
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/linkStorage', function (){
+        $target = '/home/toconcep/public_html/test.toconcepts.com/storage/app/public';
+        $link = '/home/toconcep/public_html/test.toconcepts.com/public/storage';
+
+        if (symlink($target, $link)) {
+            echo 'Storage linked successfully!';
+        } else {
+            echo 'Failed to link storage.';
+        }
+    });
 });
 //Auth::routes([
 //    'login' => true,
