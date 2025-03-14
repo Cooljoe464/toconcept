@@ -97,6 +97,11 @@ Route::post('/send-mail', function (Request $request) {
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',
         'phone' => 'required|string|max:20',
+        'gender' => 'required|string|max:6',
+        'shoot_type' => 'required|string|max:20',
+        'location' => 'required|string|max:255',
+        'no_of_individuals' => 'required|string|max:255',
+        'referred' => 'required|string|max:255',
         'message' => 'required|string',
     ]);
     Mail::to('joelonyedinefu@gmail.com')->send(new SendMail($validatedData));

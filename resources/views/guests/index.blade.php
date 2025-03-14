@@ -241,7 +241,7 @@
                                                         </div>
                                                         <div class="span4">
                                                             <span class="your-phone">
-                                                                                <select name="gender">
+                                                                                <select name="shoot_type">
                                                                                     <option disabled selected>Type of Shoot</option>
                                                                                     @foreach($getTags as $tags)
                                                                                         <option>{{ $tags->name }}</option>
