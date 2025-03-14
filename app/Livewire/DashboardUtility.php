@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Client;
 use App\Models\HomePage;
+use App\Models\Portfolio;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -15,6 +17,7 @@ class DashboardUtility extends Component
     public $uuid, $video_id, $biography_home, $biography_footer, $biography_about, $biography_photo, $photo;
     public $email1, $email2, $phone1, $phone2, $address, $map_address;
     public $facebook, $twitter, $instagram, $tiktok, $linkedin, $youtube;
+    public $no_of_portfolios, $no_of_clients;
 
     public function mount()
     {
@@ -39,6 +42,9 @@ class DashboardUtility extends Component
             $this->linkedin = $homePage->linkedin;
             $this->youtube = $homePage->youtube;
         }
+        $this->no_of_portfolios = Portfolio::count();
+        $this->no_of_clients = Client::count();
+
     }
 
     public function update()

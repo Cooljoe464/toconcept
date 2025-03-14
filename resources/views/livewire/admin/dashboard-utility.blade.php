@@ -25,8 +25,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>24</h3>
-
+                            <h3>{{ $no_of_portfolios }}</h3>
                             <p>No of Portfolios</p>
                         </div>
                         <div class="icon">
@@ -40,7 +39,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>23</h3>
+                            <h3>{{ $no_of_clients }}</h3>
 
                             <p>Total Clients</p>
                         </div>
