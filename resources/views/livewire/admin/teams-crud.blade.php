@@ -51,12 +51,12 @@
                                     <label for="exampleInputBorder">Upload Teams Image <code>*</code></label>
                                     <input type="file" wire:model="photo"
                                            class="form-control form-control-border border-width-2" name="image"
-                                           id="image" required>
+                                           id="image">
                                     @if ($isEditMode && $photo)
                                         <img src="{{ Storage::url($photo) }}" alt="Teams Photo" width="150"
                                              class="w-20 h-20 mt-2">
                                     @endif
-                                    @error('photos') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <!-- /.card-body -->

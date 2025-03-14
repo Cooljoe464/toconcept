@@ -12,8 +12,6 @@ class Videos extends Model
 {
     use HasFactory, HasUuids;
     protected $fillable = ['uuid','title', 'tag', 'tag_id', 'video_id'];
-
-
     protected $keyType = 'string'; // Set key type to string
     public $incrementing = false;  // Disable auto-incrementing ID
     protected $primaryKey = 'uuid';

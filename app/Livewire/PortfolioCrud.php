@@ -120,7 +120,7 @@ class PortfolioCrud extends Component
                 'title' => 'required|string',
                 'tags_id' => 'required|string',
                 'tags' => 'required|string',
-                'image' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
+                'image' => 'image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Maximum 2MB
             ]);
 
             $portfolio = Portfolio::findOrFail($this->portfolioId);

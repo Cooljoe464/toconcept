@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid()->primary()->index();
             $table->string('name')->unique();
             $table->string('slug')->unique()->index();
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }

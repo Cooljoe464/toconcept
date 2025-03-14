@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Teams;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -18,14 +19,6 @@ class TeamsCrud extends Component
     public $isEditMode = false;
 
     public $search = ''; // Added search property
-
-
-    public function updatedSearch()
-    {
-        // This is now handled automatically by Livewire 3
-        // If needed, you can add debounce:
-        // $this->search = $value; // Assign the new value
-    }
 
     public function render()
     {
@@ -43,9 +36,10 @@ class TeamsCrud extends Component
 
     public function store()
     {
+
         $this->validate([
             'name'  => 'required|string',
-            'photo' => 'nullable|image|max:1024',
+            'photo' => 'image|max:2048|mimes:jpg,jpeg,png,gif,webp',
         ]);
 
         $photoPath = $this->photo ? Storage::disk('public')->putFile('teams', $this->photo) : null;
@@ -64,32 +58,35 @@ class TeamsCrud extends Component
         $team = Teams::findOrFail($id);
         $this->teamId = $team->id;
         $this->name = $team->name;
-        $this->photo = $team->photo;
         $this->isEditMode = true;
     }
 
     public function update()
     {
-        $this->validate([
-            'name'  => 'required|string',
-            'photo' => 'nullable|image|max:1024',
-        ]);
+        try {
+            $this->validate([
+                'name' => 'required|string',
+                'photo' => 'max:2048',
+            ]);
+            $team = Teams::findOrFail($this->teamId);
 
-        $team = Teams::findOrFail($this->teamId);
-
-        if ($this->photo) {
-            if ($team->photo && Storage::disk('public')->exists($team->photo)) {
-                Storage::disk('public')->delete($team->photo);
+            if ($this->photo) {
+                if ($team->photo && Storage::disk('public')->exists($team->photo)) {
+                    Storage::disk('public')->delete($team->photo);
+                }
+                $photoPath = Storage::disk('public')->putFile('teams', $this->photo);
+            } else {
+                $photoPath = $team->photo;
             }
-            $photoPath = Storage::disk('public')->putFile('teams', $this->photo);
-        } else {
-            $photoPath = $team->photo;
-        }
 
-        $team->update([
-            'name'  => $this->name,
-            'photo' => $photoPath,
-        ]);
+            $team->update([
+                'name' => $this->name,
+                'photo' => $photoPath,
+            ]);
+        }catch (\Exception $exception){
+            Log::warning($exception->getMessage().' '.$exception->getLine());
+            session()->flash('error', $exception->getMessage());
+        }
 
         session()->flash('message', 'Team member updated successfully.');
         $this->resetInputFields();

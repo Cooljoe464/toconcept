@@ -16,7 +16,7 @@ class TagCrud extends Component
     // To customize the pagination theme if needed (optional)
     protected $paginationTheme = 'bootstrap';
     // Form fields
-    public $tag_id, $name, $slug, $search;
+    public $tag_id, $name, $slug, $description, $search;
 
     // Flag to switch between create and edit mode
     public $isEditMode = false;
@@ -40,6 +40,7 @@ class TagCrud extends Component
     {
         $this->name = '';
         $this->slug = '';
+        $this->description = '';
         $this->tag_id = null;
         $this->isEditMode = false;
     }
@@ -49,11 +50,13 @@ class TagCrud extends Component
         try {
             $this->validate([
                 'name' => 'required|string:max:255',
+                'description' => 'required|string:max:255',
             ]);
 
             Tags::create([
                 'name' => $this->name,
-                'slug' => strtolower($this->name)
+                'slug' => strtolower($this->name),
+                'description' => $this->description
             ]);
         } catch (\Exception $exception) {
             Log::warning($exception);
@@ -68,7 +71,8 @@ class TagCrud extends Component
         $tags = Tags::findOrFail($id);
         $this->name = $tags->name;
         $this->slug = $tags->slug;
-        $this->tag_id = $tags->id;
+        $this->tag_id = $tags->uuid;
+        $this->description = $tags->description;
         $this->isEditMode = true;
 
         // Dispatch a browser event to scroll to the form
@@ -78,21 +82,25 @@ class TagCrud extends Component
 
     public function update()
     {
-        try {
+//        try {
             $this->validate([
                 'name' => 'required|string:max:255',
                 'slug' => 'required|string:max:255',
+                'description' => 'string:max:255',
             ]);
 
             $tags = Tags::findOrFail($this->tag_id);
 
             $tags->update([
                 'question' => $this->name,
-                'slug' => strtolower($this->slug) ? strtolower($this->slug) :strtolower($this->name),
+                'slug' => strtolower($this->slug) ? strtolower($this->slug) : strtolower($this->name),
+                'description' => $this->description
             ]);
-        } catch (\Exception $exception) {
-            Log::warning($exception);
-        }
+            // Dispatch a browser event to scroll to the form
+            $this->dispatch('scroll-to-form');
+//        } catch (\Exception $exception) {
+//            Log::warning($exception);
+//        }
 
         session()->flash('message', "Tag updated successfully.");
         $this->resetInputFields();

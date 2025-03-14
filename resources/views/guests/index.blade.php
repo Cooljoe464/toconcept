@@ -132,9 +132,9 @@
                                                     {{ $homePage->biography_home??'' }}
                                                 </p>
                                                 <p class="module_cont-06">
-                                                    <a href="{{ route('contact') }}"
+                                                    <a href="{{ route('about') }}"
                                                        class="hasIcon shortcode_button btn_normal btn_type19"><i
-                                                            class="icon-none"></i>get in touch</a>
+                                                            class="fas fa-info-circle"></i></a>
                                                 </p>
                                             </div>
                                         </div>
@@ -259,7 +259,6 @@
                                                                                 <select name="location">
                                                                                     <option disabled selected>Location of Shoot</option>
                                                                                     <option>In Studio</option>
-                                                                                    <option>Studio</option>
                                                                                     <option>Location(Client's option)</option>
                                                                                     <option>Home(Client's Home)</option>
                                                                                 </select>

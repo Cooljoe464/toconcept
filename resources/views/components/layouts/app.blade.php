@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ToConcepts| </title>
+    <title>ToConcepts| {{ ucfirst(Route::currentRouteName()) }} </title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logo/logo_black.ico', env('SECURE_ASSETS')) }}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{ asset('assets/img/logo/logo_black.ico', env('SECURE_ASSETS')) }}">
     <!-- Google Font: Source Sans Pro -->

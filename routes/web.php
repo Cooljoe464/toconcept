@@ -57,8 +57,10 @@ Route::get('/portfolios/{ids}', function ($ids) {
     $homePage = HomePage::first();
     $getTags = Tags::all();
     $Portfolios = Portfolio::whereIn('tags_id', [$ids])->get();
-    $PortfolioName = Portfolio::whereIn('tags_id', [$ids])->first();
-    return view('guests.portfolio.index', compact('Portfolios', 'getTags', 'PortfolioName', 'homePage'));
+//    $PortfolioName = Portfolio::whereIn('tags_id', [$ids])->first();
+    $tagName = Tags::find($ids);
+
+    return view('guests.portfolio.index', compact('Portfolios', 'getTags', 'homePage','tagName'));
 })->name('portfolio.others');
 
 Route::get('/services', function () {

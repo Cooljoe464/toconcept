@@ -11,7 +11,8 @@
                 <div class='span12  module_number_2 module_cont text-center module_title'>
                     <div class='module_inner style5'>
                         <div class='bg_title'>
-                            <h2 class='headInModule style1-title'><strong>{{ strtoupper($PortfolioName->tags) }}</strong></h2>
+                            <h2 class='headInModule style1-title'><strong>{{ strtoupper($tagName->name) }}</strong></h2>
+                            <p>{{ $tagName->description }}</p>
                         </div>
                     </div>
                 </div>
@@ -42,7 +43,7 @@
                                         </div>
                                         <div class="clear"></div>
                                     </div>
-                                    <a href="{{ asset($portfolio->image) }}" class="portfolio_grid_href swipebox "
+                                    <a href="{{ Storage::url($portfolio->image, env('SECURE_ASSETS')) }}" class="portfolio_grid_href swipebox "
                                        title="{{ $portfolio->title }}"></a>
                                 </div>
                                 <!-- .portfolio_grid_item_wrapper -->

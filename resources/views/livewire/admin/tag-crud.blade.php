@@ -60,6 +60,16 @@
                                 </div>
                                 @endif
 
+                                <div class="form-group">
+                                    <label for="exampleInputBorder">Tag Description<code>*</code></label>
+                                    <textarea wire:model="description"
+                                           class="form-control form-control-border border-width-2" name="slug"
+                                              id="exampleInputBorder" placeholder="Enter Description"></textarea>
+
+                                    @error('slug') <span class="text-danger">{{ $message }}</span>@enderror
+                                </div>
+
+
                                 <div class="flex space-x-4">
                                     <button type="submit" class="btn btn-success">
                                         {{ $isEditMode ? 'Update' : 'Save' }}
@@ -89,6 +99,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Slug</th>
+                            <th>Description</th>
                             <th colspan="2">Actions</th>
                         </tr>
                         </thead>
@@ -97,12 +108,13 @@
                             <tr>
                                 <td><strong>{{ $tag->name }}</strong></td>
                                 <td><strong>{{ $tag->slug }}</strong></td>
+                                <td><strong>{{ $tag->description }}</strong></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button disabled wire:click="edit({{ $tag->id }})"
+                                        <button  wire:click="edit('{{ $tag->uuid }}')"
                                                 class="btn btn-secondary">Edit
                                         </button>
-                                        <button  wire:click="delete({{ $tag->id }})"
+                                        <button  wire:click="delete('{{ $tag->uuid }}')"
                                                 class="btn btn-danger"
                                                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()">
                                             Delete

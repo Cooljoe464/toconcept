@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Tags extends Model
 {
-    use HasUuids;
-    protected $fillable = ['uuid', 'name', 'slug'];
+    use HasFactory, HasUuids;
+    protected $fillable = ['uuid', 'name', 'slug', 'description'];
     protected $keyType = 'string'; // Set key type to string
     public $incrementing = false;  // Disable auto-incrementing ID
     protected $primaryKey = 'uuid';
