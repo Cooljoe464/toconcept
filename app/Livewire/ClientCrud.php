@@ -75,11 +75,9 @@ class ClientCrud extends Component
         $this->clientId = $client->uuid;
         $this->names = $client->names;
         $this->links = $client->link;
-        $this->photos = $client->photos;
+//        $this->photos = $client->photos;
         $this->isEditMode = true;
-
         $this->dispatch('scroll-to-form');
-
     }
 
     public function update()
