@@ -14,7 +14,7 @@ class ClientCrud extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $clientId, $names, $links, $photos;
+    public $clientId, $names, $links, $photos = '';
     public $isEditMode = false;
 //    public $newPhoto;
 
@@ -96,7 +96,7 @@ class ClientCrud extends Component
             if ($client->photos && Storage::disk('public')->exists($client->photos)) {
                 Storage::disk('public')->delete($client->photos);
             }
-            $photoPath = Storage::disk('public')->putFile('clients', $this->photos);
+            $photoPath = Storage::disk('public')->putFile('clients', $this->photos) ?? null;
         } else {
             $photoPath = $client->photos;
         }
