@@ -70,10 +70,9 @@
                                         <i class="fas fa-spinner fa-spin"></i> Updating...
                                     </span>
                                     @else
-                                        <span wire:loading.remove wire:target="update">Add</span>
-                                        <span wire:loading wire:target="update">
+                                        <span wire:loading.remove wire:target="store">Add</span>
+                                        <span wire:loading wire:target="store">
                                         <i class="fas fa-spinner fa-spin"></i> Adding...
-                                    </span>
                                     @endif
                                 </button>
                                 <a onclick="history.back()" class="btn btn-default float-right">back</a>
