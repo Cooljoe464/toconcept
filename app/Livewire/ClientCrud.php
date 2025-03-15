@@ -52,7 +52,7 @@ class ClientCrud extends Component
         $this->validate([
             'names' => 'required|string|max:255',
             'links' => 'nullable|url',
-            'newPhoto' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Max 2MB
+            'newPhoto' => 'image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Max 2MB
         ]);
 
         $photoPath = $this->newPhoto ? Storage::disk('public')->putFile('clients', $this->newPhoto) : null;
@@ -87,7 +87,7 @@ class ClientCrud extends Component
         $this->validate([
             'names' => 'required|string|max:255',
             'links' => 'nullable|url',
-            'newPhoto' => 'nullable|image|max:1024',
+            'newPhoto' => 'image|max:2048||mimes:jpg,jpeg,png,gif,webp',
         ]);
 
         $client = Client::findOrFail($this->clientId);
