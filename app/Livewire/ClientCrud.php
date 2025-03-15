@@ -55,7 +55,7 @@ class ClientCrud extends Component
             'photos' => 'image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Max 2MB
         ]);
 
-        $photoPath = $this->photos ? Storage::disk('public')->putFile('clients', $this->newPhoto) : null;
+        $photoPath = Storage::disk('public')->putFile('clients', $this->photos) ?? null ;
 
         Client::create([
             'names' => $this->names,
