@@ -57,13 +57,13 @@
                                 <div class="form-group">
                                     <label for="exampleInputBorder">Upload Client Image <code>*</code></label>
                                     <input type="file" wire:model="photos"
-                                           class="form-control form-control-border border-width-2" name="image"
-                                           id="image">
+                                           class="form-control form-control-border border-width-2" name="photos"
+                                           id="photos">
                                     @if ($photos)
                                         <img src="{{ Storage::url($photos) }}" alt="Client Photo" width="150"
                                              class="w-20 h-20 mt-2">
                                     @endif
-                                    @error('newPhoto') <span class="text-danger">{{ $message }}</span> @enderror
+                                    @error('photos') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                             <!-- /.card-body -->
