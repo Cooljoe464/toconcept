@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputBorder">Upload Client Image <code>*</code></label>
-                                    <input type="file" wire:model="newPhoto"
+                                    <input type="file" wire:model="photos"
                                            class="form-control form-control-border border-width-2" name="image"
                                            id="image">
                                     @if ($photos)

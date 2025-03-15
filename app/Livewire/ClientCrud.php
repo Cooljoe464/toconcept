@@ -16,7 +16,7 @@ class ClientCrud extends Component
 
     public $clientId, $names, $links, $photos;
     public $isEditMode = false;
-    public $newPhoto;
+//    public $newPhoto;
 
     public $search = ''; // Added search property
 
@@ -41,7 +41,7 @@ class ClientCrud extends Component
     {
         $this->names = '';
         $this->links = '';
-        $this->newPhoto = null;
+        $this->photos = null;
         $this->clientId = null;
         $this->isEditMode = false;
 
@@ -52,10 +52,10 @@ class ClientCrud extends Component
         $this->validate([
             'names' => 'required|string|max:255',
             'links' => 'nullable|url',
-            'newPhoto' => 'image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Max 2MB
+            'photos' => 'image|max:2048|mimes:jpg,jpeg,png,gif,webp', // Max 2MB
         ]);
 
-        $photoPath = $this->newPhoto ? Storage::disk('public')->putFile('clients', $this->newPhoto) : null;
+        $photoPath = $this->photos ? Storage::disk('public')->putFile('clients', $this->newPhoto) : null;
 
         Client::create([
             'names' => $this->names,
@@ -87,16 +87,16 @@ class ClientCrud extends Component
         $this->validate([
             'names' => 'required|string|max:255',
             'links' => 'nullable|url',
-            'newPhoto' => 'image|max:2048||mimes:jpg,jpeg,png,gif,webp',
+            'photos' => 'image|max:2048||mimes:jpg,jpeg,png,gif,webp',
         ]);
 
         $client = Client::findOrFail($this->clientId);
 
-        if ($this->newPhoto) {
+        if ($this->photos) {
             if ($client->photos && Storage::disk('public')->exists($client->photos)) {
                 Storage::disk('public')->delete($client->photos);
             }
-            $photoPath = Storage::disk('public')->putFile('clients', $this->newPhoto);
+            $photoPath = Storage::disk('public')->putFile('clients', $this->photos);
         } else {
             $photoPath = $client->photos;
         }
