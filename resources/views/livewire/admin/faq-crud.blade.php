@@ -64,7 +64,7 @@
                                 <div class="flex space-x-4">
                                     <button type="submit" class="btn btn-success">
                                         {{--                                    {{ $isEditMode ? 'Update' : 'Add' }}--}}
-                                        @if($isEditMode == 'Update')
+                                        @if($isEditMode == 'update')
                                             <span wire:loading.remove wire:target="update">Update</span>
                                             <span wire:loading wire:target="update">
                                         <i class="fas fa-spinner fa-spin"></i> Updating...

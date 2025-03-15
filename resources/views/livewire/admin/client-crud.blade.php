@@ -71,7 +71,7 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">
                                     {{--                                    {{ $isEditMode ? 'Update' : 'Add' }}--}}
-                                    @if($isEditMode == 'Update')
+                                    @if($isEditMode == 'update')
                                         <span wire:loading.remove wire:target="update">Update</span>
                                         <span wire:loading wire:target="update">
                                         <i class="fas fa-spinner fa-spin"></i> Updating...
