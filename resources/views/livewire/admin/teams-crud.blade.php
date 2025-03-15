@@ -69,7 +69,11 @@
                         </form>
                     </div>
 
-
+                        @if (session()->has('message'))
+                            <div class="mb-4 p-2 alert alert-default-info">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                     <h2 class="text-xl font-bold mt-6"><u>Teams List</u></h2>
                         <!-- Search Input -->
                         <input type="text" wire:model.live="search" class="form-control form-control-border border-width-2" placeholder="Search teams..." style="margin-bottom: 10px;">

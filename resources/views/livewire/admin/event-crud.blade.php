@@ -33,11 +33,6 @@
                     @endif
                     <!-- general form elements -->
                     <div class="card card-dark">
-                        @if (session()->has('message'))
-                            <div class="mb-4 p-2 alert alert-default-info">
-                                {{ session('message') }}
-                            </div>
-                        @endif
                         <div class="card-header">
                             <h3 class="card-title">{{ $isEditing ? 'Edit Event' : 'Add Event' }}</h3>
                         </div>
@@ -81,7 +76,11 @@
                         </form>
                     </div>
 
-
+                        @if (session()->has('message'))
+                            <div class="mb-4 p-2 alert alert-default-info">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                     <h2 class="text-xl font-bold mt-6"><u>Events List</u></h2>
                     <!-- Search Input -->
                     <input type="text" wire:model.live="search" class="form-control form-control-border border-width-2"
