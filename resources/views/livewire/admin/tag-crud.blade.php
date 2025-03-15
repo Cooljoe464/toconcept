@@ -72,7 +72,18 @@
 
                                 <div class="flex space-x-4">
                                     <button type="submit" class="btn btn-success">
-                                        {{ $isEditMode ? 'Update' : 'Save' }}
+                                        {{--                                    {{ $isEditMode ? 'Update' : 'Add' }}--}}
+                                        @if($isEditMode == 'Update')
+                                            <span wire:loading.remove wire:target="update">Update</span>
+                                            <span wire:loading wire:target="update">
+                                        <i class="fas fa-spinner fa-spin"></i> Updating...
+                                    </span>
+                                        @else
+                                            <span wire:loading.remove wire:target="update">Add</span>
+                                            <span wire:loading wire:target="update">
+                                        <i class="fas fa-spinner fa-spin"></i> Adding...
+                                    </span>
+                                        @endif
                                     </button>
                                     @if($isEditMode)
                                         <button type="button" wire:click="resetInputFields"

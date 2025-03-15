@@ -62,7 +62,20 @@
                             <!-- /.card-body -->
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-info">{{ $isEditMode ? 'Update' : 'Add' }}</button>
+                                <button type="submit" class="btn btn-info">
+{{--                                    {{ $isEditMode ? 'Update' : 'Add' }}--}}
+                                    @if($isEditMode == 'Update')
+                                        <span wire:loading.remove wire:target="update">Update</span>
+                                        <span wire:loading wire:target="update">
+                                        <i class="fas fa-spinner fa-spin"></i> Updating...
+                                    </span>
+                                    @else
+                                        <span wire:loading.remove wire:target="update">Add</span>
+                                        <span wire:loading wire:target="update">
+                                        <i class="fas fa-spinner fa-spin"></i> Adding...
+                                    </span>
+                                    @endif
+                                </button>
                                 <a onclick="history.back()" class="btn btn-default float-right">back</a>
                             </div>
                             <!-- /.card-footer -->
