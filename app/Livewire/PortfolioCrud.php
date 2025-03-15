@@ -115,7 +115,7 @@ class PortfolioCrud extends Component
     // Update an existing portfolio
     public function update()
     {
-//        try {
+        try {
             $this->validate([
                 'title' => 'required|string',
                 'tags_id' => 'required|string',
@@ -139,9 +139,9 @@ class PortfolioCrud extends Component
                 'tags' => strtolower($this->tags),
                 'image' => $imagePath,
             ]);
-//        } catch (\Exception $exception) {
-//            Log::warning($exception->getMessage().' Line: '.$exception->getLine());
-//        }
+        } catch (\Exception $exception) {
+            Log::warning($exception->getMessage().' Line: '.$exception->getLine());
+        }
 
         session()->flash('message', 'Portfolio updated successfully.');
         $this->resetInputFields();
