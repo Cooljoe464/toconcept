@@ -59,7 +59,7 @@ class FaqCrud extends Component
                 'answer' => $this->answer
             ]);
         } catch (\Exception $exception) {
-            Log::warning($exception);
+            session()->flash('message', $exception->getMessage().'=>'.$exception->getLine());
         }
 
         session()->flash('message', 'Faq created successfully.');
@@ -94,7 +94,7 @@ class FaqCrud extends Component
                 'answer' => $this->answer
             ]);
         } catch (\Exception $exception) {
-            Log::warning($exception);
+            session()->flash('message', $exception->getMessage().'=>'.$exception->getLine());
         }
 
         session()->flash('message', "Faq updated successfully.");

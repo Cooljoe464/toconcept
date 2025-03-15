@@ -59,7 +59,7 @@ class TagCrud extends Component
                 'description' => $this->description
             ]);
         } catch (\Exception $exception) {
-            Log::warning($exception);
+            session()->flash('message', $exception->getMessage().'=>'.$exception->getLine());
         }
 
         session()->flash('message', 'Tag created successfully.');

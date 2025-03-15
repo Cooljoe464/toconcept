@@ -84,8 +84,8 @@ class TeamsCrud extends Component
                 'photo' => $photoPath,
             ]);
         }catch (\Exception $exception){
-            Log::warning($exception->getMessage().' '.$exception->getLine());
-            session()->flash('error', $exception->getMessage());
+//            Log::warning($exception->getMessage().' '.$exception->getLine());
+            session()->flash('message', $exception->getMessage().'=>'.$exception->getLine());
         }
 
         session()->flash('message', 'Team member updated successfully.');

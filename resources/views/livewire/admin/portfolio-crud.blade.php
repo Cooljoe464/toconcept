@@ -42,7 +42,7 @@
                             <h3 class="card-title">{{ $isEditMode ? 'Edit Portfolio' : 'Add New Portfolio' }}</h3>
                         </div>
 
-                        <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}" class="form-horizontal ">
+                        <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}" class="form-horizontal" >
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
