@@ -10,7 +10,7 @@
 
             .book-now-box {
                 position: absolute;
-                top: 50%;
+                top: 70%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 /*background: rgba(0, 0, 0, 0.8); !* Black with slight transparency *!*/
@@ -39,13 +39,44 @@
                 /*border-color: black;*/
             }
 
-            /* Style for the description text */
             .book-now-text {
+                position: absolute;
+                top: 73%; /* Position from the top of the parent container */
+                left: 50%;
+                transform: translateX(-50%); /* Center it horizontally */
+                width: auto; /* Allow natural width on larger screens */
+                max-width: 90%; /* Prevent text from exceeding screen width */
+                margin-top: 10px;
                 color: white;
-                font-size: 14px;
-                max-width: 250px;
-                margin: 0 auto;
-                opacity: 0.8; /* Slight transparency for a subtle effect */
+                font-size: 30px;
+                padding: 15px 30px;
+                text-align: center;
+                opacity: 0.8;
+                box-sizing: border-box; /* Include padding in width calculations */
+            }
+
+            /* Media queries for different screen sizes */
+            @media (max-width: 768px) {
+                .book-now-text {
+                    font-size: 13px;
+                    padding: 12px 25px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .book-now-text {
+                    font-size: 12px;
+                    padding: 10px 20px;
+                    top: 75%; /* Slight adjustment for smaller screens */
+                }
+            }
+
+            @media (max-width: 320px) {
+                .book-now-text {
+                    font-size: 11px;
+                    padding: 8px 15px;
+                    max-width: 95%;
+                }
             }
 
 
@@ -100,9 +131,9 @@
                                                             </div>
                                                             <div class="book-now-box">
                                                                 <a href="#book_now" class="book-now-btn">Book Now</a>
-                                                                <span class="book-now-text"><b>Secure your spot today and enjoy an amazing experience!</b></span>
-                                                            </div>
 
+                                                            </div>
+                                                            <span class="book-now-text"><b>Secure your spot today and enjoy an amazing experience!</b></span>
                                                             <div class="packery_fadder"></div>
                                                         </li>
                                                     </ul>
@@ -133,8 +164,7 @@
                                                 </p>
                                                 <p class="module_cont-06">
                                                     <a href="{{ route('about') }}"
-                                                       class="hasIcon shortcode_button btn_normal btn_type19"><i
-                                                            class="fas fa-info-circle"></i></a>
+                                                       class="hasIcon shortcode_button btn_normal btn_type19">More!!!</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -188,12 +218,28 @@
                             </div>
 
                             @include('guests.addon.book_now')
+
                             <div class='span12 module_number_6 module_cont module_layer_slider' id="book_now">
+                                <br/>
                                 <div class='module_inner style45 text-center'>
                                     <div class='bg_title'>
                                         <h2 class='headInModule'><u>BOOK NOW</u></h2>
                                     </div>
                                     <div class='module_content'>
+                                        @if ($errors->any())
+                                            <div style="color:#6a1a21">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                            @if (session()->has('message'))
+                                                <div style="color:#00bc8c">
+                                                    {{ session('message') }}
+                                                </div>
+                                            @endif
                                         <div role="form" class="contact_form" lang="en-US" dir="ltr">
                                             <div class="screen-reader-response"></div>
                                             <div id="note"></div>
@@ -376,6 +422,15 @@
         <script src='assets/js/plugins/jquery.fs.gallery.js'></script>
         {{--        <script src='https://player.vimeo.com/api/player.js'></script>--}}
         <script src='assets/js/theme.js'></script>
+
+        <script>
+            window.addEventListener('scroll-to-form', event => {
+                const formElement = document.getElementById('portfolio-form');
+                if (formElement) {
+                    formElement.scrollIntoView({behavior: 'smooth'});
+                }
+            });
+        </script>
 
     @endpush
 

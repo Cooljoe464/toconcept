@@ -101,7 +101,6 @@
                         <tr>
                             <th>Questions</th>
                             <th>Answers</th>
-
                             <th colspan="2">Actions</th>
                         </tr>
                         </thead>

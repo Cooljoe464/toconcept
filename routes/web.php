@@ -60,7 +60,7 @@ Route::get('/portfolios/{ids}', function ($ids) {
 //    $PortfolioName = Portfolio::whereIn('tags_id', [$ids])->first();
     $tagName = Tags::find($ids);
 
-    return view('guests.portfolio.index', compact('Portfolios', 'getTags', 'homePage','tagName'));
+    return view('guests.portfolio.index', compact('Portfolios', 'getTags', 'homePage', 'tagName'));
 })->name('portfolio.others');
 
 Route::get('/services', function () {
@@ -101,14 +101,13 @@ Route::post('/send-mail', function (Request $request) {
         'shoot_type' => 'required|string|max:20',
         'location' => 'required|string|max:255',
         'no_of_individuals' => 'required|string|max:255',
-        'referred' => 'required|string|max:255',
+        'referred' => 'nullable|string|max:255',
         'message' => 'required|string',
     ]);
-    Mail::to('joelonyedinefu@gmail.com')->send(new SendMail($validatedData));
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Mail sent successfully'
-    ], 200);
+    $mail = Mail::to(['joelonyedinefu@gmail.com'])->send(new SendMail($validatedData));
+    if ($mail) {
+        return redirect(route('landing', '#book_now'))->with('message', 'Mail sent successfully');
+    }
 })->name('send-mail');
 
 
@@ -128,7 +127,7 @@ Route::middleware(['auth',
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/linkStorage', function (){
+    Route::get('/linkStorage', function () {
         $target = '/home/toconcep/public_html/test.toconcepts.com/storage/app/public';
         $link = '/home/toconcep/public_html/test.toconcepts.com/public/storage';
 
